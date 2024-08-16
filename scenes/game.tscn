@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://8m8rshmxhf44"]
+[gd_scene load_steps=18 format=4 uid="uid://8m8rshmxhf44"]
 
 [ext_resource type="PackedScene" uid="uid://dr86j88nl027s" path="res://scenes/player.tscn" id="1_7p213"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_vq16s"]
@@ -7,8 +7,25 @@
 [ext_resource type="PackedScene" uid="uid://byeq3xfmwq6rm" path="res://scenes/coin.tscn" id="5_cunkq"]
 [ext_resource type="PackedScene" uid="uid://c68f7xwqkn18a" path="res://scenes/killzone.tscn" id="6_o7ikv"]
 [ext_resource type="PackedScene" uid="uid://c5x8rbgvnnwod" path="res://scenes/slime-purple.tscn" id="7_ul62e"]
+[ext_resource type="FontFile" uid="uid://do0j5qp4ommir" path="res://assets/fonts/PixelOperator8.ttf" id="8_ofeep"]
+[ext_resource type="Script" path="res://scripts/game_manage.gd" id="9_eycgi"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vrnxi"]
+
+[sub_resource type="Animation" id="Animation_62fhu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(100, -76)]
+}
 
 [sub_resource type="Animation" id="Animation_pav5c"]
 resource_name = "move"
@@ -25,21 +42,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(100, -76), Vector2(100, 24)]
-}
-
-[sub_resource type="Animation" id="Animation_62fhu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(100, -76)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rgkfk"]
@@ -350,7 +352,7 @@ zoom = Vector2(4, 4)
 limit_bottom = 200
 limit_smoothed = true
 position_smoothing_enabled = true
-position_smoothing_speed = 3.0
+position_smoothing_speed = 2.0
 
 [node name="Platform3" parent="." instance=ExtResource("4_8b1yq")]
 position = Vector2(176, -7)
@@ -402,3 +404,29 @@ tile_set = SubResource("TileSet_p6svo")
 
 [node name="Node2D" parent="." instance=ExtResource("7_ul62e")]
 position = Vector2(212, 118)
+
+[node name="Labels" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="Labels"]
+offset_left = -22.0
+offset_top = 48.0
+offset_right = 155.0
+offset_bottom = 89.0
+theme_override_fonts/font = ExtResource("8_ofeep")
+text = "WASD to move
+"
+
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("9_eycgi")
+
+[node name="ScoreLabel" type="Label" parent="GameManager"]
+anchors_preset = -1
+anchor_left = 0.448
+anchor_top = 0.015
+anchor_right = 0.448
+anchor_bottom = 0.015
+offset_left = 52.904
+offset_top = 4.28
+offset_right = 93.904
+offset_bottom = 30.28
